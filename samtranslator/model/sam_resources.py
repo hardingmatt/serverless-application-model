@@ -51,6 +51,7 @@ class SamFunction(SamResourceMacro):
         'KmsKeyArn': PropertyType(False, one_of(is_type(dict), is_str())),
         'DeploymentPreference': PropertyType(False, is_type(dict)),
         'ReservedConcurrentExecutions': PropertyType(False, any_type()),
+        'Authorizer': PropertyType(False, is_str()),
 
         # Intrinsic functions in value of Alias property are not supported, yet
         'AutoPublishAlias': PropertyType(False, one_of(is_str()))
@@ -105,6 +106,9 @@ class SamFunction(SamResourceMacro):
             self._validate_deployment_preference_and_add_update_policy(kwargs.get('deployment_preference_collection',
                                                                                   None),
                                                                        lambda_alias, intrinsics_resolver)
+
+        if self.Authorizer:
+          print("Test")
 
         managed_policy_map = kwargs.get('managed_policy_map', {})
         if not managed_policy_map:
